@@ -1290,12 +1290,13 @@ TEST(ThreadLocalTest, ThreadLocalMutationsAffectOnlyCurrentThread) {
 
 #endif  // GTEST_IS_THREADSAFE
 
-#if GTEST_OS_WINDOWS
-TEST(WindowsTypesTest, HANDLEIsVoidStar) {
-  StaticAssertTypeEq<HANDLE, void*>();
+#if GTEST_OS_WINDOWS_MINGW
+TEST(WindowsTypesTest, _CRITICAL_SECTIONIs_CRITICAL_SECTION) {
+  StaticAssertTypeEq<CRITICAL_SECTION, _CRITICAL_SECTION>();
 }
+#else
 
-TEST(WindowsTypesTest, CRITICAL_SECTIONIs_RTL_CRITICAL_SECTION) {
+TEST(WindowsTypesTest, CRITICAL_SECTIONIs_RTL_CRITICAL_SECTION){
   StaticAssertTypeEq<CRITICAL_SECTION, _RTL_CRITICAL_SECTION>();
 }
 #endif  // GTEST_OS_WINDOWS
